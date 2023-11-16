@@ -1,6 +1,6 @@
   on:
     schedule:
-      - cron: 0/30 * * * *
+      - cron: 15/30 * * * *
 
   jobs:
     update_gamepack:
