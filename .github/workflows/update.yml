@@ -1,0 +1,37 @@
+  on:
+    schedule:
+      - cron: 0/30 * * * *
+
+  jobs:
+    update_gamepack:
+      runs-on: ubuntu-latest
+      container: cicirello/pyaction:latest
+
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            ref: ${{ github.ref }}
+
+        - name: update
+          run: |
+            set -x
+            
+            pip install -r requirements.txt
+            git config --global --add safe.directory '*'
+            git config --global user.name "lbp"
+            git config --global user.email ""
+            
+            cd latest/
+            rm *
+            
+            REV=$(python3 ../download.py)
+            REV_DIR="./../archive/${REV}"
+            if [ ! -d "${REV_DIR}" ]; then
+              mkdir -p "${REV_DIR}"
+              cp * "${REV_DIR}"
+            
+              cd ..
+              git add ./archive && git commit -m "Add revision ${REV}"
+              git add ./latest && git commit -m "Update latest to ${REV}"
+              git push
+            fi
