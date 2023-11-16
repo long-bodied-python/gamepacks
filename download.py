@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     # zip_buffer = io.BytesIO()
     # with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as zip_file:
-    #     zip_file.writestr('jav_config.ws', '\n'.join(f'{k}={v}' for k, v in jav_config.items()))
+    #     zip_file.writestr('jav_config.kv', '\n'.join(f'{k}={v}' for k, v in jav_config.items()))
     #     zip_file.writestr('gamepack.jar', gamepack)
     #
     # import argparse
